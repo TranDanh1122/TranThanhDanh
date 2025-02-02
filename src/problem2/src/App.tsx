@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import FormFC from "./features/FormFC"
+import { Toaster } from "./components/ui/toaster"
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
     <main className="h-screen w-full flex items-center justify-center bg-slate-200">
       <Card className="bg-white w-2/3 rounded-2xl border-none">
         <CardHeader>
-          <CardTitle className="uppercase ">Curency Swap</CardTitle>
+          <CardTitle className="uppercase text-center text-[#280d5f] font-extrabold">Currency Swap</CardTitle>
         </CardHeader>
         <CardContent>
           <FormFC />
@@ -24,10 +25,7 @@ function App() {
           <CardDescription className="text-sm italic text-slate-400">* If you click swap, you agree to our Terms and Policies.</CardDescription>
         </CardFooter>
       </Card>
-
-
-
-
+      <Toaster />
     </main>
   )
 }

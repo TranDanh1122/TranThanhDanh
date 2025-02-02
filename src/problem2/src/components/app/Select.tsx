@@ -20,7 +20,7 @@ interface SelectProps {
     currencies: Currency[],
     name: string,
     selected?: string,
-    onChange?: (value: string|number, name: string) => void
+    onChange?: (value: string | number, name: string) => void
 }
 const Select = React.memo(({ currencies, name, selected, onChange }: SelectProps): React.JSX.Element => {
     const [open, setOpen] = React.useState(false)
@@ -33,7 +33,7 @@ const Select = React.memo(({ currencies, name, selected, onChange }: SelectProps
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-full justify-between focus-visible:ring-0 ">
+                    className="w-full justify-between focus-visible:ring-0 font-bold text-[#280d5f] border-2 border-[#280d5f]/50">
                     {currencies.some(el => el.currency === selected) ? selected : "Select Currency..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -46,7 +46,7 @@ const Select = React.memo(({ currencies, name, selected, onChange }: SelectProps
                         <CommandGroup>
                             {currencies.map((currency, index) => (
                                 <CommandItem
-                                    className="font-bold border-b-[1px] border-slate-200 hover:text-amber-400"
+                                    className="font-bold  text-[#280d5f] hover:bg-[#21c8d5]/50"
                                     key={`${currency.currency}_${index}`}
                                     value={currency.currency}
                                     onSelect={(value: string) => {
@@ -54,12 +54,12 @@ const Select = React.memo(({ currencies, name, selected, onChange }: SelectProps
                                         onChange?.(currency.price, `${name}_compareUSDT`)
                                         setOpen(false)
                                     }}>
+                                    {currency.currency}
                                     <Check
                                         className={cn(
-                                            "mr-2 h-4 w-4",
+                                            "ml-auto h-4 w-4",
                                             selected === currency.currency ? "opacity-100" : "opacity-0"
                                         )} />
-                                    {currency.currency}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

@@ -15,7 +15,7 @@ interface InputFCProps {
     name: string,
     label: string,
     placeholder: string,
-    readOnly?: boolean
+    readOnly?: boolean,
 }
 const InputFC = React.memo(({ control, name, label, placeholder, readOnly }: InputFCProps): React.JSX.Element => {
     console.log(`re-render input_${name}`);
@@ -25,25 +25,26 @@ const InputFC = React.memo(({ control, name, label, placeholder, readOnly }: Inp
         name={name as keyof FormType}
         render={({ field }) => (
             <FormItem className="gap-2 flex flex-col">
-                <FormLabel className="text-[#5E7A7D]">{label}</FormLabel>
+                <FormLabel className="text-[#280d5f] font-bold">{label}</FormLabel>
                 <FormControl>
                     <>
                         <NumericFormat
                             value={field.value}
                             readOnly={readOnly}
                             placeholder={placeholder}
-                            className="focus-visible:ring-0 "
+                            className="focus-visible:ring-0 font-bold text-[#280d5f] border-2 border-[#280d5f]/50"
                             thousandSeparator=","
                             allowNegative={false}
-                            prefix="$"
-                            onValueChange={(values) => { field.onChange(Number(values.value.trim())) }}
+                            onValueChange={(values) => {
+                                const value = Number(values.value.trim())
+                                field.onChange(value)
+                            }}
                             customInput={Input}
                         />
-                        <Input {...field} name={name} className="hidden" />
                     </>
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-red-600" />
             </FormItem>
         )}
     />
