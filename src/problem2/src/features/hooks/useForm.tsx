@@ -3,7 +3,6 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useToast } from "../../hooks/use-toast"
-import SVGAPI from "@/api/SVGAPI"
 const formSchema = z.object({
     from: z.coerce.string().min(1, "Currency is required"),
     from_compareUSDT: z.coerce.number(),

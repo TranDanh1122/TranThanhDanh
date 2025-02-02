@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 const client = axios.create({
     baseURL: "https://interview.switcheo.com",
     timeout: 3000
