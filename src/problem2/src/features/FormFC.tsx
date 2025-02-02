@@ -13,19 +13,23 @@ const FormFC = (): React.JSX.Element => {
     const { currencies } = useCurrency()
     const ref = React.useRef<HTMLDivElement>(null)
     React.useEffect(() => {
-        ref.current?.addEventListener("mouseenter", () => {
-            if (!ref.current) return
-            ref.current.style.rotate = "180deg"
-        })
-        ref.current?.addEventListener("mouseleave", () => {
-            if (!ref.current) return
-            ref.current.style.rotate = "0deg"
-        })
+        const element = ref.current;
+        if (!element) return
+        const handleMouseAction = (rotate: number) => {
+            const deg = rotate + (window.innerWidth > 767 ? 0 : 90)
+            element.style.rotate = `${deg}deg`
+        };
+        element.addEventListener("mouseenter", () => handleMouseAction(180))
+        element.addEventListener("mouseleave", () => handleMouseAction(0))
+        return () => {
+            element.removeEventListener("mouseenter", () => handleMouseAction(180))
+            element.removeEventListener("mouseleave", () => handleMouseAction(0))
+        }
     }, [])
     return <Form  {...form}>
         <form onSubmit={form.handleSubmit((data) => onSubmit(data), (errors) => { console.log(errors) })}>
-            <div className="flex items-center justify-between">
-                <div className="w-3/7 p-6 flex flex-col gap-4 bg-[#eeeaf4] rounded-2xl">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-center justify-between">
+                <div className="md:w-3/7 w-full p-6 flex flex-col gap-4 bg-[#eeeaf4] rounded-2xl">
                     <fieldset className="flex flex-col gap-2">
                         <label htmlFor="from" className="text-[#280d5f] font-bold">From Coin</label>
                         <Select currencies={currencies} selected={form.watch("from")} name="from" onChange={handleChange} />
@@ -34,12 +38,12 @@ const FormFC = (): React.JSX.Element => {
                     </fieldset>
                     <InputFC label="Amount to send" placeholder="Amount to send..." name="from_amount" control={form.control} />
                 </div>
-                <div className="w-1/7 flex items-center justify-center">
-                    <div ref={ref} onClick={swap} className="w-12 h-12  rounded-full  bg-[#21c8d5] cursor-pointer transition-transform duration-300 ease-linear">
+                <div className="w-full md:w-1/7 flex items-center justify-center">
+                    <div ref={ref} onClick={swap} className="w-12 h-12 rotate-90 md:rotate-0  rounded-full  bg-[#21c8d5] cursor-pointer transition-transform duration-300 ease-linear">
                         <img src={rightArrow} alt="" className="w-full h-full object-cover" />
                     </div>
                 </div>
-                <div className="w-3/7 p-6 flex flex-col gap-4 bg-[#eeeaf4] rounded-2xl">
+                <div className="w-full md:w-3/7 p-6 flex flex-col gap-4 bg-[#eeeaf4] rounded-2xl">
                     <fieldset className="flex flex-col gap-2">
                         <label htmlFor="to" className="text-[#280d5f] font-bold">To Coin</label>
                         <Select currencies={currencies} selected={form.watch("to")} name="to" onChange={handleChange} />
@@ -49,7 +53,7 @@ const FormFC = (): React.JSX.Element => {
                 </div>
             </div>
             <div className="flex justify-center mt-4">
-                <Button type="submit" className="bg-[#21c8d5] text-white font-bold w-1/3 cursor-pointer hover:opacity-70" >
+                <Button type="submit" className="bg-[#21c8d5] text-white font-bold w-2/3 md:w-1/3 cursor-pointer hover:opacity-70" >
                     <i className="w-4 h-4 bg-white"
                         style={{
                             mask: `url("${swapIcon}") center / cover no-repeat`,

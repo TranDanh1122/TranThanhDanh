@@ -13,7 +13,7 @@ function App() {
 
   return (
     <main className="h-screen w-full flex items-center justify-center bg-slate-200">
-      <Card className="bg-white w-2/3 rounded-2xl border-none">
+      <Card className="bg-white lg:w-2/3 md:w-4/5 w-[90%] rounded-2xl border-none">
         <CardHeader>
           <CardTitle className="uppercase text-center text-[#280d5f] font-extrabold">Currency Swap</CardTitle>
         </CardHeader>
